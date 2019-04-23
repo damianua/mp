@@ -61,6 +61,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('User Group') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="group_id" class="form-control{{ $errors->has('group_id') ? ' is-invalid' : '' }}" name="group_id">
+                                    <option @if(old('group_id') == 1) selected="selected" @endif value="1">{{ __('user.group_1') }}</option>
+                                    <option @if(old('group_id') == 2) selected="selected" @endif value="2">{{ __('user.group_2') }}</option>
+                                    <option @if(old('group_id') == 3) selected="selected" @endif value="3">{{ __('user.group_3') }}</option>
+                                </select>
+                                @if ($errors->has('group_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('group_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

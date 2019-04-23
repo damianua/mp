@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use Illuminate\Routing\Router;
+
+Auth::routes(['register' => false]);
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::group(['prefix' => 'register', 'namespace' => 'Auth'], function(Router $router){
+        $router->get('/', 'RegisterController@showRegistrationForm')->name('register');
+        $router->post('/', 'RegisterController@registerUser');
+    });
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

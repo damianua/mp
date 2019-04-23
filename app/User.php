@@ -10,13 +10,17 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const GROUP_ADMIN = 1;
+    const GROUP_MANAGER = 2;
+    const GROUP_VENDOR = 3;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'group_id'
     ];
 
     /**
@@ -36,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        return $this->group_id === self::GROUP_ADMIN;
+    }
 }
