@@ -34,6 +34,12 @@ return [
     */
 
     'channels' => [
+        'esync' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/esync/esync.log'),
+            'level' => 'debug',
+            'days' => 14
+        ],
         'stack' => [
             'driver' => 'stack',
             'channels' => ['daily'],
