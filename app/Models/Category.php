@@ -10,4 +10,11 @@ class Category extends Model
     protected $casts = [
         'active' => 'boolean'
     ];
+
+    public function productProperties()
+    {
+        return $this->belongsToMany(ProductProperty::class)
+            ->withPivot('sort', 'require')
+            ->withTimestamps();
+    }
 }
