@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\EsyncService;
+use App\Services\Stateless\CategoryService;
 use App\Services\Stateless\HandbookItemService;
 use App\Services\Stateless\HandbookService;
 use App\Services\Stateless\SectionService;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('SectionService', function(){
             return new SectionService();
         });
+        $this->app->singleton('CategoryService', CategoryService::class);
         $this->app->singleton('EsyncService', function($app){
             return new EsyncService(
                 $app['EsyncHandbookEntityRepository']

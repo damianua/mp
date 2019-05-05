@@ -8,14 +8,18 @@
     border-color: #146d64;
 }
 
-.btn-link {
+a, .btn-link {
     color: #4d917a;
 }
 
-.btn-link:hover{
+a:hover, .btn-link:hover{
     color: #c15666;
 }
 
 .navbar-nav.mr-auto {
     display: block;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+	background-color:  #018577;
 }

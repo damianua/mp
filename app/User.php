@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->group_id === self::GROUP_ADMIN;
     }
+
+    public function isManager()
+    {
+    	return $this->group_id === self::GROUP_MANAGER;
+    }
 }

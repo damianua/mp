@@ -14,11 +14,15 @@
 use Illuminate\Routing\Router;
 
 Auth::routes(['register' => false]);
-Route::group(['middleware' => ['auth']], function(){
-    Route::get('/', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function(Router $router){
+    $router->get('/', 'HomeController@index')->name('home');
 
-    Route::group(['prefix' => 'register', 'namespace' => 'Auth'], function(Router $router){
+    $router->group(['prefix' => 'register', 'namespace' => 'Auth'], function(Router $router){
         $router->get('/', 'RegisterController@showRegistrationForm')->name('register');
         $router->post('/', 'RegisterController@registerUser');
+    });
+
+    $router->group(['prefix' => 'settings', 'namespace' => 'Settings', 'as' => 'settings.'], function(Router $router){
+	    $router->get('/category-properties/{category?}', 'CategoryPropertiesController@index')->name('category_properties');
     });
 });

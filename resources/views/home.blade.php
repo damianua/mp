@@ -1,26 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.app', ['pageTitle' => __('Dashboard')])
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if(Auth::user()->isAdmin())
-                        <div>
-                            <a href="{{ route('register') }}">Добавить пользователя</a>
-                        </div>
-                    @endif
-                </div>
-            </div>
+    @if(Auth::user()->isAdmin())
+        <div>
+            <a href="{{ route('register') }}">{{ __('Add user') }}</a>
         </div>
-    </div>
-</div>
+    @endif
+    @can('associateWithProperties', \App\Models\Category::class)
+        <div>
+            <a href="{{ route('settings.category_properties') }}">{{ __('Associate catalog categories with product properties') }}</a>
+        </div>
+    @endcan
 @endsection

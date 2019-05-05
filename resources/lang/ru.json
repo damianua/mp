@@ -1,7 +1,7 @@
 {
   "Login": "Вход в систему",
   "Register": "Регистрация",
-  "Logout": "Вийти",
+  "Logout": "Выйти",
   "Name": "Имя",
   "E-Mail Address": "E-mail",
   "Password": "Пароль",
@@ -27,5 +27,9 @@
   "Reset Password Notification": "Уведомление о сбросе пароля",
   "You are receiving this email because we received a password reset request for your account.": "Вы получили это уведомление, потому-что нами был получен запрос на сброс пароля вашего аккаунта",
   "This password reset link will expire in :count minutes.":  "Эта ссылка на сброс пароля будет доступна :count минут",
-  "If you did not request a password reset, no further action is required.": "Если вы не понимаете о чем речь, просто проигнорируйте это сообщение"
+  "If you did not request a password reset, no further action is required.": "Если вы не понимаете о чем речь, просто проигнорируйте это сообщение",
+
+  "Add": "Добавить",
+  "Add user": "Добавление пользователя",
+  "Associate catalog categories with product properties": "Привязка свойств товара к категориям"
 }
