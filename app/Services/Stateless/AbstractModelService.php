@@ -17,6 +17,8 @@ abstract class AbstractModelService
     public function beforeQuery(callable $func)
     {
         $this->beforeQuery = $func;
+
+        return $this;
     }
 
     public function cache()
@@ -31,7 +33,7 @@ abstract class AbstractModelService
     public function get(Builder $query, array $columns = ['*'])
     {
         if($this->beforeQuery){
-            call_user_func($this->beforeQuery);
+            call_user_func($this->beforeQuery, $query);
             unset($this->beforeQuery);
         }
 

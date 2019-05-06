@@ -6,7 +6,9 @@ namespace App\Http\Adapters\Settings;
 
 use App\Http\Adapters\AbstractControllerAdapter;
 use App\Models\Category;
+use App\Models\ProductProperty;
 use App\Services\CategoryPropertiesAssociationService;
+use Illuminate\Support\Collection;
 
 class CategoryPropertiesAdapter extends AbstractControllerAdapter
 {
@@ -23,7 +25,9 @@ class CategoryPropertiesAdapter extends AbstractControllerAdapter
 	public function getData()
 	{
 		return [
-			'categories' => $this->service->getCategories()->map(\Closure::fromCallable([$this, 'hydrateCategory']))
+			'categories' => $this->service->getCategories()->map(\Closure::fromCallable([$this, 'hydrateCategory'])),
+			'currentCategory' => $this->hydrateCategory($this->service->getCategory()),
+			'productProperties' => $this->hydrateProperties($this->service->getProductProperties())
 		];
 	}
 
@@ -34,5 +38,52 @@ class CategoryPropertiesAdapter extends AbstractControllerAdapter
 			'name' => $category->name,
 			'is_current' => $category->id === $this->service->getCategory()->id
 		];
+	}
+
+	protected function hydrateProperties(Collection $productProperties)
+	{
+		$data = $productProperties->map(
+			\Closure::fromCallable([$this, 'hydrateProperty'])
+		)->toArray();
+
+		uasort($data, function($propData1, $propData2){
+			if($propData1['sort'] === $propData2['sort']){
+				return $propData1['id'] <=> $propData2['id'];
+			}
+			return $propData1['sort'] <=> $propData2['sort'];
+		});
+
+		return $data;
+	}
+
+	protected function hydrateProperty(ProductProperty $property)
+	{
+		$inputPrefix = 'property.'.$property->id.'.';
+		$categoryProperty = $this->service->getCategoryProperties()->get($property->id);
+		$data = [
+			'id' => $property->id,
+			'name' => $property->name,
+			'sort' => $categoryProperty ? $categoryProperty->pivot->sort : 100,
+			'is_hidden' => !$categoryProperty
+		];
+		$data['sort_value'] = old($inputPrefix.'sort', $data['sort']);
+		$data['hide_value'] =  old($inputPrefix.'hide', $data['is_hidden']);
+
+		return $data;
+	}
+
+	public function associate(array $propertiesData)
+	{
+		$syncData = [];
+		foreach($propertiesData as $propertyId => $associateData){
+			if(isset($associateData['hide'])){
+				continue;
+			}
+			$syncData[$propertyId] = [
+				'sort' => $associateData['sort']
+			];
+		}
+
+		$this->service->syncCategoryProperties($syncData);
 	}
 }

@@ -22,4 +22,21 @@ class CategoryPropertiesController extends Controller
 
     	return view('settings.category_properties', $adapter->getData());
     }
+
+    public function associate(Request $request, Category $category)
+    {
+    	$validatedData = $this->validate($request, [
+    		'property.*.sort' => 'required|integer',
+		    'property.*.hide' => ''
+	    ], [
+	    	'property.*.sort.required' => 'Поле с сортировкой не должно быть пустым',
+		    'property.*.sort.integer' => 'Значение сортировки должно быть целым числом'
+	    ]);
+
+    	$service = new CategoryPropertiesAssociationService($category);
+    	$adapter = new CategoryPropertiesAdapter($service);
+    	$adapter->associate($validatedData['property']);
+
+    	return back()->with('status', 'Данные успешно сохранены');
+    }
 }

@@ -7,6 +7,5 @@ use Faker\Generator as Faker;
 
 $factory->define(ProductProperty::class, function (Faker $faker) {
     return [
-        //
     ];
 });

@@ -6,6 +6,7 @@ use App\Services\EsyncService;
 use App\Services\Stateless\CategoryService;
 use App\Services\Stateless\HandbookItemService;
 use App\Services\Stateless\HandbookService;
+use App\Services\Stateless\ProductPropertyService;
 use App\Services\Stateless\SectionService;
 use App\Support\Cache\StubStore;
 use Illuminate\Support\Facades\Cache;
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
             return new SectionService();
         });
         $this->app->singleton('CategoryService', CategoryService::class);
+        $this->app->singleton('ProductPropertyService', ProductPropertyService::class);
         $this->app->singleton('EsyncService', function($app){
             return new EsyncService(
                 $app['EsyncHandbookEntityRepository']

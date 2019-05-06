@@ -24,5 +24,6 @@ Route::group(['middleware' => ['auth']], function(Router $router){
 
     $router->group(['prefix' => 'settings', 'namespace' => 'Settings', 'as' => 'settings.'], function(Router $router){
 	    $router->get('/category-properties/{category?}', 'CategoryPropertiesController@index')->name('category_properties');
+        $router->post('/category-properties/{category}', 'CategoryPropertiesController@associate')->name('category_properties.associate');
     });
 });

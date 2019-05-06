@@ -3,9 +3,20 @@
     border-color:  #018577;
 }
 
-.btn-primary:hover {
+.btn-primary:hover{
     background-color: #146d64;
     border-color: #146d64;
+}
+
+.btn-outline-primary {
+	border-color: #018577;
+	color: #018577;
+}
+
+.btn-outline-primary:hover {
+	color: #c15666;
+	border-color: #c15666;
+	background-color: transparent;
 }
 
 a, .btn-link {

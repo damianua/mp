@@ -37,6 +37,10 @@ return [
             'driver' => 'apc',
         ],
 
+	    'stub' => [
+	    	'driver' => 'stub'
+	    ],
+
         'array' => [
             'driver' => 'array',
         ],

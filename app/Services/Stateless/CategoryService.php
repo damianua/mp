@@ -14,6 +14,9 @@ class CategoryService extends AbstractModelService
 		return Category::class;
 	}
 
+	/**
+	 * @return Collection|Category[]
+	 */
 	public function getActive()
 	{
 		return $this->getAll()->filter(function(Category $category){

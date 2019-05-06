@@ -9,6 +9,9 @@ class ProductProperty extends Model
     protected $fillable = [
         'active', 'sort', 'name', 'external_id'
     ];
+    protected $casts = [
+    	'active' => 'boolean'
+    ];
 
     public function categories()
     {
