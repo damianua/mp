@@ -35,7 +35,9 @@ class CategoryPropertiesController extends Controller
 
     	$service = new CategoryPropertiesAssociationService($category);
     	$adapter = new CategoryPropertiesAdapter($service);
-    	$adapter->associate($validatedData['property']);
+    	if(isset($validatedData['property'])){
+            $adapter->associate($validatedData['property']);
+        }
 
     	return back()->with('status', 'Данные успешно сохранены');
     }

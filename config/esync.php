@@ -14,7 +14,7 @@ return [
             'xxx-good_type' => '/api/v1/iblock/6',
             'xxx-color' => '/api/v1/iblock/7',
             'xxx-pol' => '/api/v1/iblock/10',
-            'xxx-technologies' => '/api/v1/iblock/38'
+            //'xxx-technologies' => '/api/v1/iblock/38'
         ],
         'categories' => '/api/v1/category/'
     ],

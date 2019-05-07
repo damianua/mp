@@ -19,6 +19,7 @@
             </li>
         @endforeach
     </ul>
+    @if($productProperties)
     <form method="post" action="{{ route('settings.category_properties.associate', [$currentCategory['id']]) }}">
         @csrf
         <div class="mt-1" style="max-height: 675px; overflow-y: auto">
@@ -46,8 +47,8 @@
                                     value="{{ $property['sort_value'] }}"
                                 />
                             </td>
-                            <td>
-                                <input name="property[{{ $property['id'] }}][hide]" @if($property['hide_value']) checked="checked" @endif class="form-control" type="checkbox" />
+                            <td class="align-middle text-center">
+                                <input name="property[{{ $property['id'] }}][hide]" @if($property['hide_value']) checked="checked" @endif type="checkbox" />
                             </td>
                             <td class="align-middle" style="color: red">
                                 @error('property.'.$property['id'].'.sort')
@@ -64,4 +65,9 @@
             <input class="btn btn-outline-primary" type="reset" value="Отмена">
         </div>
     </form>
+    @else
+        <div class="mt-2 alert alert-warning">
+            Свойства товаров не найдены
+        </div>
+    @endif
 @endsection

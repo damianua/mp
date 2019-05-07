@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Support\Facades\Esync;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
@@ -20,9 +21,16 @@ class EsyncHandbooks extends Command
     public function handle()
     {
         $this->flushDataIfNeeded();
-        $this->syncHandbooks();
-        if($this->option('withItems')){
-            Artisan::call('esync:handbook-items', [], $this->getOutput());
+        try{
+            $this->syncHandbooks();
+            if($this->option('withItems')){
+                Artisan::call('esync:handbook-items', [], $this->getOutput());
+            }
+        }
+        catch(ConnectException $e){
+            $this->error($e->getMessage());
+            $this->info('Retry...');
+            $this->handle();
         }
     }
 

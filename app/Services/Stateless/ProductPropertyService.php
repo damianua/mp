@@ -51,6 +51,8 @@ class ProductPropertyService extends AbstractModelService
 			}
 		}
 
+		$this->cache()->forget('product_properties.all');
+
 		return $productProperty;
 	}
 

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Support\Facades\Esync;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Console\Command;
 
 class EsyncSections extends Command
@@ -38,8 +39,15 @@ class EsyncSections extends Command
      */
     public function handle()
     {
-        $this->info('Sync catalog sections...');
-        Esync::syncSections();
-        $this->info('Catalog sections have been successfully synced');
+        try{
+            $this->info('Sync catalog sections...');
+            Esync::syncSections();
+            $this->info('Catalog sections have been successfully synced');
+        }
+        catch (ConnectException $e){
+            $this->error($e->getMessage());
+            $this->info('Retry...');
+            $this->handle();
+        }
     }
 }
