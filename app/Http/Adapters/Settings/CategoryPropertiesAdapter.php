@@ -64,10 +64,12 @@ class CategoryPropertiesAdapter extends AbstractControllerAdapter
 			'id' => $property->id,
 			'name' => $property->name,
 			'sort' => $categoryProperty ? $categoryProperty->pivot->sort : 100,
-			'is_hidden' => !$categoryProperty
+			'is_hidden' => !$categoryProperty,
+            'is_required' => $categoryProperty ? $categoryProperty->pivot->require : false
 		];
 		$data['sort_value'] = old($inputPrefix.'sort', $data['sort']);
 		$data['hide_value'] =  old($inputPrefix.'hide', $data['is_hidden']);
+        $data['require_value'] =  old($inputPrefix.'require', $data['is_required']);
 
 		return $data;
 	}
@@ -80,7 +82,8 @@ class CategoryPropertiesAdapter extends AbstractControllerAdapter
 				continue;
 			}
 			$syncData[$propertyId] = [
-				'sort' => $associateData['sort']
+				'sort' => $associateData['sort'],
+                'require' => isset($associateData['require'])
 			];
 		}
 

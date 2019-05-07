@@ -27,7 +27,8 @@ class CategoryPropertiesController extends Controller
     {
     	$validatedData = $this->validate($request, [
     		'property.*.sort' => 'required|integer',
-		    'property.*.hide' => ''
+		    'property.*.hide' => '',
+            'property.*.require' => ''
 	    ], [
 	    	'property.*.sort.required' => 'Поле с сортировкой не должно быть пустым',
 		    'property.*.sort.integer' => 'Значение сортировки должно быть целым числом'

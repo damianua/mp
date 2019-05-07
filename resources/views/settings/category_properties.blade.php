@@ -27,8 +27,9 @@
                 <thead>
                 <tr>
                     <th class="col-md-3">Название</th>
-                    <th class="col-md-3 text-center">Сортировка</th>
+                    <th class="col-md-2 text-center">Сортировка</th>
                     <th class="col-md-1 text-center">Скрыть</th>
+                    <th class="col-md-1 text-center">Обязательное</th>
                     <th class="col-md-5"></th>
                 </tr>
                 </thead>
@@ -49,6 +50,9 @@
                             </td>
                             <td class="align-middle text-center">
                                 <input name="property[{{ $property['id'] }}][hide]" @if($property['hide_value']) checked="checked" @endif type="checkbox" />
+                            </td>
+                            <td class="align-middle text-center">
+                                <input name="property[{{ $property['id'] }}][require]" @if($property['require_value']) checked="checked" @endif type="checkbox" />
                             </td>
                             <td class="align-middle" style="color: red">
                                 @error('property.'.$property['id'].'.sort')
