@@ -122,19 +122,6 @@ class GuzzleHttpDriver extends AbstractHttpDriver
         return $handbookEntity;
     }
 
-    public function getCategoriesList(): EntityList
-    {
-        $list = [];
-        $resource = $this->getResources('categories');
-        $response = $this->get($resource);
-        $data = $this->getResponseDataOrFail($response);
-        foreach($data['data'] as $categoryData){
-            $list[] = new CategoryEntity($categoryData);
-        }
-
-        return new EntityList($list);
-    }
-
     /**
      * @param Response $response
      * @return array

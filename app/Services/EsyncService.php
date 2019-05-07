@@ -6,21 +6,15 @@ namespace App\Services;
 
 use App\Models\Handbook;
 use App\Models\HandbookItem;
-use App\Services\Esync\Repositories\CategoryRepository;
 use App\Services\Esync\Repositories\HandbookEntityRepository;
 use App\Services\Esync\Repositories\HandbookItemEntityRepository;
 use App\Services\Stateless\HandbookItemService;
 use App\Services\Stateless\HandbookService;
-use App\Services\Stateless\SectionService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class EsyncService
 {
-    /**
-     * @var SectionService
-     */
-    protected $sectionService;
     /**
      * @var HandbookItemService
      */
@@ -40,7 +34,6 @@ class EsyncService
     {
         $this->handbookService = app('HandbookService');
         $this->handbookItemService = app('HandbookItemService');
-        $this->sectionService = app('SectionService');
 
         $this->handbookEntityRepository = $handbookEntityRepository;
     }
@@ -107,28 +100,6 @@ class EsyncService
                     'name' => $handbookItemEntity->title,
                     'external_id' => $handbookItemEntity->xmlId,
                     'handbook_id' => $handbook->id
-                ]);
-            }
-        }
-    }
-
-    public function syncSections()
-    {
-        /**
-         * @var CategoryRepository $repository
-         */
-        $repository = app('EsyncCategoryRepository');
-        foreach ($repository->getAll() as $categoryEntity){
-            $section = $this->sectionService->getByExternalId($categoryEntity->id);
-            if($section){
-                $this->sectionService->updateSection($section, [
-                    'name' => $categoryEntity->title
-                ]);
-            }
-            else{
-                $this->sectionService->createSection([
-                    'name' => $categoryEntity->title,
-                    'external_id' => $categoryEntity->id
                 ]);
             }
         }

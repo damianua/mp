@@ -7,7 +7,6 @@ use App\Services\Stateless\CategoryService;
 use App\Services\Stateless\HandbookItemService;
 use App\Services\Stateless\HandbookService;
 use App\Services\Stateless\ProductPropertyService;
-use App\Services\Stateless\SectionService;
 use App\Support\Cache\StubStore;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
@@ -26,9 +25,6 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('HandbookItemService', function(){
             return new HandbookItemService();
-        });
-        $this->app->singleton('SectionService', function(){
-            return new SectionService();
         });
         $this->app->singleton('CategoryService', CategoryService::class);
         $this->app->singleton('ProductPropertyService', ProductPropertyService::class);

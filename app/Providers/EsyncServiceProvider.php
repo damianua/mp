@@ -33,10 +33,6 @@ class EsyncServiceProvider extends ServiceProvider
             return new HandbookEntityRepository($app['EsyncDriver']);
         });
 
-        $this->app->singleton('EsyncCategoryRepository', function($app){
-            return new CategoryRepository($app['EsyncDriver']);
-        });
-
         $this->app->bind('EsyncHandbookItemEntityRepository', function($app){
             return new HandbookItemEntityRepository($app['EsyncDriver']);
         });
