@@ -16,7 +16,7 @@ class CreateProductPropertiesTable extends Migration
         Schema::create('product_properties', function (Blueprint $table) {
             $table->integerIncrements('id');
             $table->boolean('active')->default(1);
-            $table->boolean('sort')->default(100);
+            $table->unsignedInteger('sort')->default(100);
             $table->string('name', 255);
             $table->string('external_id', 64)->default('');
             $table->timestamps();

@@ -6,6 +6,7 @@ use App\Services\Esync\Drivers\GuzzleHttpDriver;
 use App\Services\Esync\Repositories\CategoryRepository;
 use App\Services\Esync\Repositories\HandbookEntityRepository;
 use App\Services\Esync\Repositories\HandbookItemEntityRepository;
+use App\Services\Esync\Repositories\ProductPropertyEntityRepository;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +36,10 @@ class EsyncServiceProvider extends ServiceProvider
 
         $this->app->bind('EsyncHandbookItemEntityRepository', function($app){
             return new HandbookItemEntityRepository($app['EsyncDriver']);
+        });
+
+        $this->app->bind('EsyncProductPropertyEntityRepository', function($app){
+            return new ProductPropertyEntityRepository($app['EsyncDriver']);
         });
     }
 

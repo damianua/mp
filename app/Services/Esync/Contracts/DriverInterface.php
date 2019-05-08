@@ -12,6 +12,7 @@ interface DriverInterface
     public function getHandbookList(): EntityList;
     public function getHandbook(string $externalId): HandbookEntity;
     public function getHandbookItemList(string $handbookExternalId): EntityList;
+    public function getProductPropertyList(): EntityList;
 
     /**
      * @param int $page

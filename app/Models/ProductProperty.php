@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ProductProperty extends Model
+class ProductProperty extends BaseModel
 {
     protected $fillable = [
         'active', 'sort', 'name', 'external_id'

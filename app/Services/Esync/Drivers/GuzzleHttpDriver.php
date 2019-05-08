@@ -6,6 +6,7 @@ namespace App\Services\Esync\Drivers;
 use App\Services\Esync\Entities\CategoryEntity;
 use App\Services\Esync\Entities\HandbookEntity;
 use App\Services\Esync\Entities\HandbookItemEntity;
+use App\Services\Esync\Entities\PropertyEntity;
 use App\Services\Esync\EntityList;
 use App\Services\Esync\EntityListPager;
 use App\Services\Esync\Exceptions\HttpDriverException;
@@ -120,6 +121,20 @@ class GuzzleHttpDriver extends AbstractHttpDriver
         }
 
         return $handbookEntity;
+    }
+
+    public function getProductPropertyList(): EntityList
+    {
+        $list = [];
+        $this->logger->info('Получение списка свойств товара');
+        $resource = $this->getResources('product_properties');
+        $response = $this->get($resource);
+        $data = $this->getResponseDataOrFail($response)['data'];
+        foreach($data as $productPropertyData){
+            $list[] = new PropertyEntity($productPropertyData);
+        }
+
+        return new EntityList($list);
     }
 
     /**

@@ -16,6 +16,6 @@ return [
             'xxx-pol' => '/api/v1/iblock/10',
             //'xxx-technologies' => '/api/v1/iblock/38'
         ],
-        'categories' => '/api/v1/category/'
+        'product_properties' => '/api/v1/iblock/2/property'
     ],
 ];

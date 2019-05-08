@@ -19,12 +19,17 @@ class ProductPropertyService extends AbstractModelService
 		$this->categoryService = app('CategoryService');
 	}
 
+	public function getByExternalId(string $externalId): ?ProductProperty
+    {
+        return ProductProperty::where('external_id', $externalId)->first();
+    }
+
 	public function getModelClass(): string
 	{
 		return ProductProperty::class;
 	}
 
-	public function getActive()
+	public function getActive(): Collection
 	{
 		return $this->getAll()->filter(function(ProductProperty $productProperty){
 			return $productProperty->active;
@@ -34,14 +39,23 @@ class ProductPropertyService extends AbstractModelService
 	/**
 	 * @return ProductProperty[]|Collection
 	 */
-	public function getAll()
+	public function getAll(): Collection
 	{
 		return $this->cache()->remember('product_properties.all', 3600, function(){
 			return $this->get(ProductProperty::orderBy('sort'));
 		});
 	}
 
-	public function createProductProperty(array $attributes)
+	public function updateProductProperty($productProperty, array $attributes)
+    {
+        $productProperty = $this->findProductPropertyOrFail($productProperty);
+
+        return $productProperty
+            ->fill($attributes)
+            ->save();
+    }
+
+	public function createProductProperty(array $attributes): ProductProperty
 	{
 		$productProperty = ProductProperty::create($attributes)->fresh();
 		//по-умолчанию при добавлении нового активного свойства оно автоматом должно привязываться к категории товара
@@ -56,7 +70,7 @@ class ProductPropertyService extends AbstractModelService
 		return $productProperty;
 	}
 
-	public function findProductPropertyOrFail($productProperty)
+	public function findProductPropertyOrFail($productProperty): ProductProperty
 	{
 		return $this->findOrFail($productProperty);
 	}
